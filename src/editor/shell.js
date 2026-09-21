@@ -1,6 +1,7 @@
 import { createSlide } from "../core/deck.js";
 import { createSlideNavigator } from "./navigator.js";
 import { createLivePreview } from "./preview.js";
+import { createPropertyEditor } from "./property-editor.js";
 
 function requireElement(value, name) {
   if (!value || typeof value.replaceChildren !== "function") {
@@ -11,15 +12,6 @@ function requireElement(value, name) {
 
 function text(value) {
   return value === undefined || value === null ? "" : String(value);
-}
-
-function escapeHtml(value) {
-  return text(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
 }
 
 function defaultSlideFactory({ index }) {
@@ -41,7 +33,7 @@ function defaultSlideFactory({ index }) {
  * renderer adapters.  Navigator and preview remain replaceable independently
  * of the semantic state boundary.
  */
-export function createAuthoringShell({ root, store, renderer, createSlide: makeSlide } = {}) {
+export function createAuthoringShell({ root, store, renderer, createSlide: makeSlide, layoutRegistry } = {}) {
   const element = requireElement(root, "shell root");
   if (!store || typeof store.getState !== "function") throw new TypeError("shell store is required");
   if (!renderer) throw new TypeError("shell renderer is required");
@@ -75,26 +67,15 @@ export function createAuthoringShell({ root, store, renderer, createSlide: makeS
     })),
   });
   const preview = createLivePreview({ root: previewRoot, store, renderer });
+  const propertyEditor = createPropertyEditor({ root: propertiesRoot, store, layoutRegistry });
 
   function renderProperties(state = store.getState()) {
     const active = state.deck.slides.find((slide) => slide.id === state.activeSlideId);
     titleRoot.textContent = text(state.deck.metadata.title);
     if (!active) {
-      propertiesRoot.innerHTML = '<p class="editor-kicker">Semantic properties</p><h2>No active slide</h2><p class="editor-muted">Add a slide to begin authoring.</p>';
       statusRoot.textContent = "No active slide.";
       return;
     }
-    const content = active.layout.content || {};
-    const summary = content.title || content.statement || content.takeaway || active.purpose;
-    propertiesRoot.innerHTML = [
-      '<p class="editor-kicker">Semantic properties</p>',
-      `<h2>${escapeHtml(summary)}</h2>`,
-      '<dl class="editor-property-list">',
-      `  <div><dt>Purpose</dt><dd>${escapeHtml(active.purpose)}</dd></div>`,
-      `  <div><dt>Layout</dt><dd><code>${escapeHtml(active.layout.kind)}</code></dd></div>`,
-      `  <div><dt>Slide id</dt><dd><code>${escapeHtml(active.id)}</code></dd></div>`,
-      "</dl>",
-    ].join("\n");
     statusRoot.textContent = `Editing slide ${state.deck.slides.indexOf(active) + 1} of ${state.deck.slides.length}.`;
   }
 
@@ -110,6 +91,7 @@ export function createAuthoringShell({ root, store, renderer, createSlide: makeS
       unsubscribe();
       navigator.destroy();
       preview.destroy();
+      propertyEditor.destroy();
       element.replaceChildren();
     },
   });
