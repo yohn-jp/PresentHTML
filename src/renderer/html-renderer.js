@@ -183,7 +183,11 @@ export function renderSlideMarkup({ slide, layout, content, slideNumber }) {
 /** Render a complete static presentation document with no runtime script. */
 export function renderPresentationDocument({ deck, slides, css, themeId }) {
   const title = escapeHtml(deck.metadata.title);
-  const slideMarkup = slides.join("\n\n").split("\n").map((line) => `    ${line}`).join("\n");
+  const indentLines = (value, indent) => value
+    .split("\n")
+    .map((line) => line.trim().length === 0 ? "" : `${indent}${line}`)
+    .join("\n");
+  const slideMarkup = indentLines(slides.join("\n\n"), "    ");
   return [
     "<!doctype html>",
     `<html lang="en">`,
@@ -192,7 +196,7 @@ export function renderPresentationDocument({ deck, slides, css, themeId }) {
     "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
     `    <title>${title}</title>`,
     "    <style data-presenthtml-renderer>",
-    ...css.split("\n").map((line) => `      ${line}`),
+    indentLines(css, "      "),
     "    </style>",
     "  </head>",
     "  <body>",

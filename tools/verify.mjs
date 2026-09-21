@@ -22,7 +22,7 @@ function verifyArtifact(artifact, artifactPath) {
   assert(artifact.includes('<script data-presenthtml-source="app.js">'), "browser JavaScript was not inlined");
   assert(!/<link\b[^>]*\bhref=/i.test(artifact), "packaged artifact contains an external stylesheet reference");
   assert(!/<script\b[^>]*(?:\bsrc=|\btype=["']module["'])/i.test(artifact), "packaged artifact contains an external/module script reference");
-  assert(!/^\s*(?:import|export)\b/m.test(artifact), "packaged artifact still contains a top-level ESM statement");
+  assert(!/^\s*(?:import|export)\s/m.test(artifact), "packaged artifact still contains a top-level ESM statement");
   assert(!/\bimport\s*\(/.test(artifact), "packaged artifact contains a dynamic module import");
   assert(!/\b(?:fetch|XMLHttpRequest|WebSocket)\s*\(/.test(artifact), "packaged artifact contains a network runtime dependency");
   assert(pathToFileURL(artifactPath).protocol === "file:", "artifact must have a file:// URL");

@@ -219,7 +219,7 @@ function withPrintCss(html, printCss = DEFAULT_PRINT_CSS) {
     throw new TypeError("printCss must be a non-empty string");
   }
   if (html.includes(PRINT_STYLE_MARKER)) return html;
-  const style = `    <style ${PRINT_STYLE_MARKER}>\n${printCss.split("\n").map((line) => `      ${line}`).join("\n")}\n    </style>`;
+  const style = `    <style ${PRINT_STYLE_MARKER}>\n${printCss.split("\n").map((line) => line.trim().length === 0 ? "" : `      ${line}`).join("\n")}\n    </style>`;
   if (/<\/head\s*>/i.test(html)) {
     return html.replace(/<\/head\s*>/i, `${style}\n  </head>`);
   }

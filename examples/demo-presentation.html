@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PresentHTML semantic layout tour</title>
+    <style data-presenthtml-renderer>
+      :root {
+        --ph-border-style: solid;
+        --ph-border-width: 1px;
+        --ph-color-accent: #526dff;
+        --ph-color-accent-contrast: #ffffff;
+        --ph-color-accent-strong: #2f48cb;
+        --ph-color-background: #f4f7fb;
+        --ph-color-border: #dce3ef;
+        --ph-color-border-strong: #bac6db;
+        --ph-color-surface: #ffffff;
+        --ph-color-surface-raised: #ffffff;
+        --ph-color-text: #172033;
+        --ph-color-text-muted: #56627a;
+        --ph-color-text-subtle: #7d879b;
+        --ph-geometry-aspect-ratio: 16 / 9;
+        --ph-geometry-height: 900px;
+        --ph-geometry-width: 1600px;
+        --ph-grid-column-gap: 2rem;
+        --ph-grid-columns: 12;
+        --ph-grid-content-max-width: 1360px;
+        --ph-grid-content-padding: 7.5rem;
+        --ph-grid-row-gap: 2rem;
+        --ph-imagery-object-fit: cover;
+        --ph-imagery-object-position: center;
+        --ph-imagery-overlay: linear-gradient(180deg, rgba(23, 32, 51, 0) 45%, rgba(23, 32, 51, 0.55) 100%);
+        --ph-imagery-radius: 1.5rem;
+        --ph-radius-lg: 1.5rem;
+        --ph-radius-md: 1rem;
+        --ph-radius-none: 0;
+        --ph-radius-pill: 999px;
+        --ph-radius-sm: 0.5rem;
+        --ph-radius-xl: 2rem;
+        --ph-shadow-lg: 0 1.5rem 4rem rgba(23, 32, 51, 0.16);
+        --ph-shadow-md: 0 1rem 2.5rem rgba(23, 32, 51, 0.12);
+        --ph-shadow-none: none;
+        --ph-shadow-sm: 0 0.5rem 1.25rem rgba(23, 32, 51, 0.08);
+        --ph-spacing-2xl: 3rem;
+        --ph-spacing-3xl: 4.5rem;
+        --ph-spacing-lg: 1.5rem;
+        --ph-spacing-md: 1rem;
+        --ph-spacing-none: 0;
+        --ph-spacing-sm: 0.75rem;
+        --ph-spacing-xl: 2rem;
+        --ph-spacing-xs: 0.5rem;
+        --ph-typography-body-font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --ph-typography-body-font-size: 1.35rem;
+        --ph-typography-body-font-weight: 450;
+        --ph-typography-body-letter-spacing: -0.01em;
+        --ph-typography-body-line-height: 1.5;
+        --ph-typography-caption-font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --ph-typography-caption-font-size: 0.95rem;
+        --ph-typography-caption-font-weight: 650;
+        --ph-typography-caption-letter-spacing: 0.02em;
+        --ph-typography-caption-line-height: 1.35;
+        --ph-typography-display-font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --ph-typography-display-font-size: clamp(3.5rem, 7vw, 7rem);
+        --ph-typography-display-font-weight: 800;
+        --ph-typography-display-letter-spacing: -0.06em;
+        --ph-typography-display-line-height: 0.98;
+        --ph-typography-metric-font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --ph-typography-metric-font-size: clamp(3rem, 6vw, 6rem);
+        --ph-typography-metric-font-weight: 800;
+        --ph-typography-metric-letter-spacing: -0.06em;
+        --ph-typography-metric-line-height: 0.95;
+        --ph-typography-subtitle-font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --ph-typography-subtitle-font-size: clamp(1.25rem, 2.2vw, 2rem);
+        --ph-typography-subtitle-font-weight: 500;
+        --ph-typography-subtitle-letter-spacing: -0.02em;
+        --ph-typography-subtitle-line-height: 1.3;
+        --ph-typography-title-font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --ph-typography-title-font-size: clamp(2.5rem, 5vw, 4.75rem);
+        --ph-typography-title-font-weight: 750;
+        --ph-typography-title-letter-spacing: -0.045em;
+        --ph-typography-title-line-height: 1.04;
+      }
+
+      /* PresentHTML static presentation renderer */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--ph-color-background);
+        color: var(--ph-color-text);
+        font-family: var(--ph-typography-body-font-family);
+      }
+
+      body {
+        padding: var(--ph-spacing-xl);
+      }
+
+      .ph-presentation {
+        display: grid;
+        gap: var(--ph-spacing-xl);
+        justify-items: center;
+        width: 100%;
+      }
+
+      .ph-slide {
+        position: relative;
+        display: grid;
+        overflow: hidden;
+        aspect-ratio: var(--ph-geometry-aspect-ratio);
+        width: min(100%, var(--ph-geometry-width));
+        min-height: 0;
+        padding: var(--ph-grid-content-padding);
+        background: var(--ph-color-surface);
+        color: var(--ph-color-text);
+        isolation: isolate;
+      }
+
+      .ph-slide::before {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: var(--ph-color-background);
+        content: "";
+      }
+
+      .ph-slide__content {
+        display: grid;
+        align-content: center;
+        gap: var(--ph-spacing-lg);
+        width: min(100%, var(--ph-grid-content-max-width));
+        min-width: 0;
+        margin: auto;
+      }
+
+      .ph-slide__eyebrow,
+      .ph-slide__number,
+      .ph-slide__label {
+        margin: 0;
+        color: var(--ph-color-accent-strong);
+        font: var(--ph-typography-caption-font-weight) var(--ph-typography-caption-font-size) / var(--ph-typography-caption-line-height) var(--ph-typography-caption-font-family);
+        letter-spacing: var(--ph-typography-caption-letter-spacing);
+        text-transform: uppercase;
+      }
+
+      .ph-slide h1,
+      .ph-slide h2,
+      .ph-slide h3,
+      .ph-slide p,
+      .ph-slide blockquote,
+      .ph-slide figure,
+      .ph-slide ul {
+        margin: 0;
+      }
+
+      .ph-slide h1,
+      .ph-slide h2 {
+        font-family: var(--ph-typography-title-font-family);
+        font-size: var(--ph-typography-title-font-size);
+        font-weight: var(--ph-typography-title-font-weight);
+        line-height: var(--ph-typography-title-line-height);
+        letter-spacing: var(--ph-typography-title-letter-spacing);
+      }
+
+      .ph-slide__subtitle,
+      .ph-slide__supporting,
+      .ph-slide__body,
+      .ph-slide__takeaway,
+      .ph-slide__next-step {
+        color: var(--ph-color-text-muted);
+        font-family: var(--ph-typography-subtitle-font-family);
+        font-size: var(--ph-typography-subtitle-font-size);
+        font-weight: var(--ph-typography-subtitle-font-weight);
+        line-height: var(--ph-typography-subtitle-line-height);
+        letter-spacing: var(--ph-typography-subtitle-letter-spacing);
+      }
+
+      .ph-slide--title .ph-slide__content,
+      .ph-slide--statement .ph-slide__content,
+      .ph-slide--closing .ph-slide__content {
+        max-width: 76rem;
+      }
+
+      .ph-slide--title {
+        background: var(--ph-color-accent);
+        color: var(--ph-color-accent-contrast);
+      }
+
+      .ph-slide--title::before {
+        background: linear-gradient(135deg, var(--ph-color-accent-strong), var(--ph-color-accent));
+      }
+
+      .ph-slide--title .ph-slide__eyebrow,
+      .ph-slide--title .ph-slide__subtitle {
+        color: var(--ph-color-accent-contrast);
+      }
+
+      .ph-slide--section {
+        background: var(--ph-color-accent-strong);
+        color: var(--ph-color-accent-contrast);
+      }
+
+      .ph-slide--section::before {
+        background: var(--ph-color-accent-strong);
+      }
+
+      .ph-slide--section .ph-slide__number,
+      .ph-slide--section .ph-slide__subtitle {
+        color: var(--ph-color-accent-contrast);
+      }
+
+      .ph-slide--statement blockquote {
+        border-inline-start: var(--ph-border-width) var(--ph-border-style) var(--ph-color-accent);
+        padding-inline-start: var(--ph-spacing-lg);
+        font-family: var(--ph-typography-display-font-family);
+        font-size: var(--ph-typography-display-font-size);
+        font-weight: var(--ph-typography-display-font-weight);
+        line-height: var(--ph-typography-display-line-height);
+        letter-spacing: var(--ph-typography-display-letter-spacing);
+      }
+
+      .ph-slide__attribution {
+        color: var(--ph-color-text-subtle);
+        font-family: var(--ph-typography-caption-font-family);
+        font-size: var(--ph-typography-caption-font-size);
+        font-weight: var(--ph-typography-caption-font-weight);
+        line-height: var(--ph-typography-caption-line-height);
+      }
+
+      .ph-slide__body-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        gap: var(--ph-grid-column-gap);
+        align-items: start;
+      }
+
+      .ph-slide__list,
+      .ph-slide__side-list {
+        display: grid;
+        gap: var(--ph-spacing-sm);
+        padding-inline-start: var(--ph-spacing-lg);
+        color: var(--ph-color-text-muted);
+        font-family: var(--ph-typography-body-font-family);
+        font-size: var(--ph-typography-body-font-size);
+        line-height: var(--ph-typography-body-line-height);
+      }
+
+      .ph-slide__comparison,
+      .ph-slide__metrics {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--ph-grid-column-gap);
+      }
+
+      .ph-slide__comparison-side,
+      .ph-slide__metric {
+        display: grid;
+        align-content: start;
+        gap: var(--ph-spacing-sm);
+        min-width: 0;
+        padding: var(--ph-spacing-lg);
+        border: var(--ph-border-width) var(--ph-border-style) var(--ph-color-border);
+        border-radius: var(--ph-radius-lg);
+        background: var(--ph-color-surface-raised);
+        box-shadow: var(--ph-shadow-sm);
+      }
+
+      .ph-slide__comparison-side h3,
+      .ph-slide__metric-label {
+        font-family: var(--ph-typography-subtitle-font-family);
+        font-size: var(--ph-typography-subtitle-font-size);
+        font-weight: var(--ph-typography-subtitle-font-weight);
+        line-height: var(--ph-typography-subtitle-line-height);
+      }
+
+      .ph-slide__comparison-side p,
+      .ph-slide__metric-detail {
+        color: var(--ph-color-text-muted);
+        font-family: var(--ph-typography-body-font-family);
+        font-size: var(--ph-typography-body-font-size);
+        line-height: var(--ph-typography-body-line-height);
+      }
+
+      .ph-slide--image-text .ph-slide__content {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: center;
+        gap: var(--ph-grid-column-gap);
+      }
+
+      .ph-slide--image-text .ph-slide__copy {
+        display: grid;
+        gap: var(--ph-spacing-lg);
+      }
+
+      .ph-slide--image-text .ph-slide__media {
+        order: 2;
+        overflow: hidden;
+        border-radius: var(--ph-imagery-radius);
+        box-shadow: var(--ph-shadow-md);
+      }
+
+      .ph-slide--image-text.ph-slide--image-left .ph-slide__media {
+        order: 0;
+      }
+
+      .ph-slide__image {
+        display: block;
+        aspect-ratio: 16 / 9;
+        width: 100%;
+        object-fit: var(--ph-imagery-object-fit);
+        object-position: var(--ph-imagery-object-position);
+      }
+
+      .ph-slide__caption {
+        display: block;
+        padding: var(--ph-spacing-sm) var(--ph-spacing-md);
+        background: var(--ph-color-surface-raised);
+        color: var(--ph-color-text-subtle);
+        font-family: var(--ph-typography-caption-font-family);
+        font-size: var(--ph-typography-caption-font-size);
+        line-height: var(--ph-typography-caption-line-height);
+      }
+
+      .ph-slide__metric-value {
+        color: var(--ph-color-accent-strong);
+        font-family: var(--ph-typography-metric-font-family);
+        font-size: var(--ph-typography-metric-font-size);
+        font-weight: var(--ph-typography-metric-font-weight);
+        line-height: var(--ph-typography-metric-line-height);
+        letter-spacing: var(--ph-typography-metric-letter-spacing);
+      }
+
+      .ph-slide__metric-unit {
+        color: var(--ph-color-text-muted);
+        font-family: var(--ph-typography-subtitle-font-family);
+        font-size: var(--ph-typography-subtitle-font-size);
+        font-weight: var(--ph-typography-subtitle-font-weight);
+      }
+
+      .ph-slide--closing {
+        background: var(--ph-color-text);
+        color: var(--ph-color-accent-contrast);
+      }
+
+      .ph-slide--closing::before {
+        background: var(--ph-color-text);
+      }
+
+      .ph-slide--closing .ph-slide__takeaway,
+      .ph-slide--closing .ph-slide__next-step,
+      .ph-slide--closing .ph-slide__attribution {
+        color: var(--ph-color-accent-contrast);
+      }
+
+      .ph-slide--closing .ph-slide__next-step {
+        display: inline-block;
+        padding: var(--ph-spacing-md) var(--ph-spacing-lg);
+        border-radius: var(--ph-radius-pill);
+        background: var(--ph-color-accent);
+      }
+
+      .ph-slot {
+        min-width: 0;
+      }
+
+      @media (max-width: 52rem) {
+        body {
+          padding: var(--ph-spacing-md);
+        }
+
+        .ph-slide {
+          min-height: auto;
+          padding: var(--ph-spacing-lg);
+        }
+
+        .ph-slide__body-layout,
+        .ph-slide--image-text .ph-slide__content,
+        .ph-slide__comparison,
+        .ph-slide__metrics {
+          grid-template-columns: 1fr;
+        }
+
+        .ph-slide--image-text .ph-slide__media,
+        .ph-slide--image-text.ph-slide--image-left .ph-slide__media {
+          order: 0;
+        }
+      }
+    </style>
+      <style data-presenthtml-export-print>
+      @media print {
+        @page {
+          size: 16in 9in;
+          margin: 0;
+        }
+
+        html,
+        body {
+          min-height: 0;
+          padding: 0 !important;
+          background: #fff !important;
+        }
+
+        .ph-presentation {
+          display: block;
+          width: 100%;
+        }
+
+        .ph-slide {
+          width: 100% !important;
+          min-height: 100vh;
+          height: 100vh;
+          aspect-ratio: auto;
+          break-after: page;
+          page-break-after: always;
+        }
+
+        .ph-slide:last-child {
+          break-after: auto;
+          page-break-after: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="ph-presentation" data-theme="default">
+    <section class="ph-slide ph-slide--title" data-layout="title" data-slide-id="fixture-title" aria-label="Slide 1">
+      <div class="ph-slide__content">
+        <p class="ph-slide__eyebrow ph-slot ph-slot--eyebrow">PRESENTHTML MVP</p>
+        <h1 class="ph-slot ph-slot--title" id="ph-slide-1-title">A clear idea, presented simply</h1>
+        <p class="ph-slide__subtitle ph-slot ph-slot--subtitle">A semantic-first presentation example</p>
+      </div>
+    </section>
+
+    <section class="ph-slide ph-slide--section" data-layout="section" data-slide-id="fixture-section" aria-label="Slide 2">
+      <div class="ph-slide__content">
+        <p class="ph-slide__number ph-slot ph-slot--number">1</p>
+        <h1 class="ph-slot ph-slot--title" id="ph-slide-2-title">Why this matters</h1>
+        <p class="ph-slide__subtitle ph-slot ph-slot--subtitle">The context behind the decision</p>
+      </div>
+    </section>
+
+    <section class="ph-slide ph-slide--statement" data-layout="statement" data-slide-id="fixture-statement" aria-label="Slide 3">
+      <div class="ph-slide__content">
+        <blockquote class="ph-slot ph-slot--statement">Good presentation structure makes the next decision easier.</blockquote>
+        <p class="ph-slide__supporting ph-slot ph-slot--supporting-text">One message, made memorable.</p>
+        <p class="ph-slide__attribution ph-slot ph-slot--attribution">— PresentHTML team</p>
+      </div>
+    </section>
+
+    <section class="ph-slide ph-slide--title-body" data-layout="title-body" data-slide-id="fixture-title-body" aria-label="Slide 4">
+      <div class="ph-slide__content">
+        <p class="ph-slide__eyebrow ph-slot ph-slot--eyebrow">METHOD</p>
+        <div class="ph-slide__body-layout">
+          <h1 class="ph-slot ph-slot--title" id="ph-slide-4-title">From intent to a useful deck</h1>
+          <div class="ph-slide__body-copy ph-slot ph-slot--body">
+            <p class="ph-slide__body">Start with the audience and the decision they need to make.</p>
+            <ul class="ph-slide__list">
+              <li>Clarify the objective</li>
+              <li>Sequence the narrative</li>
+              <li>Keep every slide semantic</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ph-slide ph-slide--comparison" data-layout="comparison" data-slide-id="fixture-comparison" aria-label="Slide 5">
+      <div class="ph-slide__content">
+        <h1 class="ph-slot ph-slot--title" id="ph-slide-5-title">Before and after</h1>
+        <div class="ph-slide__comparison">
+          <article class="ph-slide__comparison-side ph-slot ph-slot--left">
+            <h3>Unstructured notes</h3>
+            <p>Many ideas compete for attention.</p>
+            <ul class="ph-slide__side-list">
+              <li>Hard to scan</li>
+              <li>Difficult to edit</li>
+            </ul>
+          </article>
+          <article class="ph-slide__comparison-side ph-slot ph-slot--right">
+            <h3>Semantic deck</h3>
+            <p>Each slide has a clear purpose.</p>
+            <ul class="ph-slide__side-list">
+              <li>Easy to review</li>
+              <li>Ready to export</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ph-slide ph-slide--image-text ph-slide--image-right" data-layout="image-text" data-slide-id="fixture-image-text" aria-label="Slide 6">
+      <div class="ph-slide__content">
+        <figure class="ph-slide__media ph-slot ph-slot--image">
+          <img class="ph-slide__image" src="data:image/svg+xml,%3Csvg xmlns=&#39;http://www.w3.org/2000/svg&#39; width=&#39;800&#39; height=&#39;450&#39; viewBox=&#39;0 0 800 450&#39;%3E%3Crect width=&#39;800&#39; height=&#39;450&#39; fill=&#39;%23dfe8f4&#39;/%3E%3Cpath d=&#39;M80 350L260 170l105 105 95-90 260 165H80z&#39; fill=&#39;%235b78a6&#39;/%3E%3C/svg%3E" alt="Abstract mountain illustration">
+          <figcaption class="ph-slide__caption">A renderer-independent image reference</figcaption>
+        </figure>
+        <div class="ph-slide__copy">
+          <h1 class="ph-slot ph-slot--title" id="ph-slide-6-title">Show the evidence</h1>
+          <p class="ph-slide__body ph-slot ph-slot--body">Images remain semantic content and can be packaged with the presentation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="ph-slide ph-slide--kpi" data-layout="kpi" data-slide-id="fixture-kpi" aria-label="Slide 7">
+      <div class="ph-slide__content">
+        <h1 class="ph-slot ph-slot--title" id="ph-slide-7-title">The small set of signals</h1>
+        <div class="ph-slide__metrics">
+          <article class="ph-slide__metric ph-slot ph-slot--metric-1">
+            <p class="ph-slide__metric-label">Clarity</p>
+            <p class="ph-slide__metric-value">92 <span class="ph-slide__metric-unit">%</span></p>
+            <p class="ph-slide__metric-detail">of reviewers found the message quickly</p>
+          </article>
+          <article class="ph-slide__metric ph-slot ph-slot--metric-2">
+            <p class="ph-slide__metric-label">Time saved</p>
+            <p class="ph-slide__metric-value">3×</p>
+            <p class="ph-slide__metric-detail">faster semantic editing</p>
+          </article>
+          <article class="ph-slide__metric ph-slot ph-slot--metric-3">
+            <p class="ph-slide__metric-label">Layouts</p>
+            <p class="ph-slide__metric-value">8</p>
+            <p class="ph-slide__metric-detail">core MVP layout contracts</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ph-slide ph-slide--closing" data-layout="closing" data-slide-id="fixture-closing" aria-label="Slide 8">
+      <div class="ph-slide__content">
+        <h1 class="ph-slot ph-slot--title" id="ph-slide-8-title">Make the next idea presentable</h1>
+        <p class="ph-slide__takeaway ph-slot ph-slot--takeaway">Keep the meaning portable, then choose how it should look.</p>
+        <p class="ph-slide__next-step ph-slot ph-slot--next-step">Create a brief and draft the first slide.</p>
+        <p class="ph-slide__attribution ph-slot ph-slot--attribution">PresentHTML MVP</p>
+      </div>
+    </section>
+    </main>
+  </body>
+</html>

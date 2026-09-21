@@ -302,6 +302,117 @@ h1 {
   font-size: 0.75rem;
 }
 
+.mvp-integration {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.mvp-integration-panel {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--editor-border);
+  border-radius: 18px;
+  background: var(--editor-surface);
+  box-shadow: 0 12px 32px rgba(23, 32, 51, 0.06);
+}
+
+.mvp-panel-heading {
+  margin-bottom: 12px;
+}
+
+.mvp-panel-heading h2 {
+  margin-bottom: 0;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.mvp-form-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.mvp-field {
+  display: grid;
+  gap: 5px;
+  color: var(--editor-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.mvp-field input,
+.mvp-field textarea {
+  width: 100%;
+  padding: 8px 9px;
+  color: var(--editor-ink);
+  border: 1px solid var(--editor-border);
+  border-radius: 7px;
+  background: #fbfcfe;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 400;
+  resize: vertical;
+}
+
+.mvp-field input:focus,
+.mvp-field textarea:focus,
+.editor-control-field input:focus,
+.editor-control-field select:focus {
+  outline: 2px solid rgba(82, 109, 255, 0.25);
+  border-color: var(--editor-accent);
+}
+
+.mvp-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.mvp-actions--wrap {
+  flex-wrap: wrap;
+}
+
+.mvp-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.mvp-file-label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.mvp-integration-status {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 11px 14px;
+  color: var(--editor-muted);
+  border: 1px solid var(--editor-border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+}
+
+.mvp-integration-status[data-status="error"] {
+  color: #9a3f52;
+  border-color: #edc4cd;
+  background: #fff6f8;
+}
+
+.mvp-integration-status[data-status="ok"] {
+  color: #236446;
+  border-color: #b9dfca;
+  background: #f4fcf7;
+}
+
 @media (max-width: 640px) {
   .app-shell {
     width: min(100% - 24px, 1120px);
@@ -322,5 +433,9 @@ h1 {
   .editor-canvas {
     order: -1;
     min-height: 52vh;
+  }
+
+  .mvp-integration {
+    grid-template-columns: 1fr;
   }
 }
