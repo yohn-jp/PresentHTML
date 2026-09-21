@@ -157,6 +157,35 @@ export function createEditorStore(input = {}) {
     return commit(nextDeck, requestedId === undefined ? activeSlideId : requestedId);
   }
 
+  function updateSlide(slideId = activeSlideId, update) {
+    const index = currentIndex(slideId);
+    if (index < 0) return snapshot();
+    if (typeof update !== "function" && (!update || typeof update !== "object" || Array.isArray(update))) {
+      throw new TypeError("slide update must be a function or plain object");
+    }
+    const current = clone(deck.slides[index]);
+    const nextSlide = typeof update === "function" ? update(current) : { ...current, ...clone(update) };
+    const nextSlides = deck.slides.map((item, itemIndex) => itemIndex === index ? nextSlide : clone(item));
+    return commit({ ...deck, slides: nextSlides }, activeSlideId);
+  }
+
+  function updateSlideContent(slideId = activeSlideId, content) {
+    return updateSlide(slideId, (slide) => ({
+      ...slide,
+      layout: { ...slide.layout, content: clone(content) },
+    }));
+  }
+
+  function updateSlideLayout(slideId = activeSlideId, layout) {
+    if (!layout || typeof layout !== "object" || Array.isArray(layout)) {
+      throw new TypeError("slide layout must be a plain object");
+    }
+    return updateSlide(slideId, (slide) => ({
+      ...slide,
+      layout: clone(layout),
+    }));
+  }
+
   function subscribe(listener) {
     if (typeof listener !== "function") throw new TypeError("listener must be a function");
     listeners.add(listener);
@@ -173,6 +202,9 @@ export function createEditorStore(input = {}) {
     deleteSlide,
     reorderSlide,
     replaceDeck,
+    updateSlide,
+    updateSlideContent,
+    updateSlideLayout,
     subscribe,
   });
 }
