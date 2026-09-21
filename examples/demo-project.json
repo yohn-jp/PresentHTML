@@ -1,0 +1,220 @@
+{
+  "schemaId": "presenthtml",
+  "schemaVersion": 1,
+  "kind": "project",
+  "deck": {
+    "schemaId": "presenthtml",
+    "schemaVersion": 1,
+    "kind": "deck",
+    "metadata": {
+      "title": "PresentHTML semantic layout tour",
+      "author": "PresentHTML",
+      "description": "Representative content for every MVP layout."
+    },
+    "theme": {
+      "id": "default"
+    },
+    "slides": [
+      {
+        "id": "fixture-title",
+        "purpose": "Demonstrate the title layout",
+        "layout": {
+          "kind": "title",
+          "content": {
+            "title": "A clear idea, presented simply",
+            "subtitle": "A semantic-first presentation example",
+            "eyebrow": "PRESENTHTML MVP"
+          }
+        },
+        "notes": "Fixture slide 1"
+      },
+      {
+        "id": "fixture-section",
+        "purpose": "Demonstrate the section layout",
+        "layout": {
+          "kind": "section",
+          "content": {
+            "title": "Why this matters",
+            "subtitle": "The context behind the decision",
+            "number": 1
+          }
+        },
+        "notes": "Fixture slide 2"
+      },
+      {
+        "id": "fixture-statement",
+        "purpose": "Demonstrate the statement layout",
+        "layout": {
+          "kind": "statement",
+          "content": {
+            "statement": "Good presentation structure makes the next decision easier.",
+            "supportingText": "One message, made memorable.",
+            "attribution": "PresentHTML team"
+          }
+        },
+        "notes": "Fixture slide 3"
+      },
+      {
+        "id": "fixture-title-body",
+        "purpose": "Demonstrate the title-body layout",
+        "layout": {
+          "kind": "title-body",
+          "content": {
+            "title": "From intent to a useful deck",
+            "body": "Start with the audience and the decision they need to make.",
+            "bullets": [
+              "Clarify the objective",
+              "Sequence the narrative",
+              "Keep every slide semantic"
+            ],
+            "eyebrow": "METHOD"
+          }
+        },
+        "notes": "Fixture slide 4"
+      },
+      {
+        "id": "fixture-comparison",
+        "purpose": "Demonstrate the comparison layout",
+        "layout": {
+          "kind": "comparison",
+          "content": {
+            "title": "Before and after",
+            "left": {
+              "heading": "Unstructured notes",
+              "body": "Many ideas compete for attention.",
+              "items": [
+                "Hard to scan",
+                "Difficult to edit"
+              ]
+            },
+            "right": {
+              "heading": "Semantic deck",
+              "body": "Each slide has a clear purpose.",
+              "items": [
+                "Easy to review",
+                "Ready to export"
+              ]
+            }
+          }
+        },
+        "notes": "Fixture slide 5"
+      },
+      {
+        "id": "fixture-image-text",
+        "purpose": "Demonstrate the image-text layout",
+        "layout": {
+          "kind": "image-text",
+          "content": {
+            "title": "Show the evidence",
+            "body": "Images remain semantic content and can be packaged with the presentation.",
+            "image": {
+              "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450' viewBox='0 0 800 450'%3E%3Crect width='800' height='450' fill='%23dfe8f4'/%3E%3Cpath d='M80 350L260 170l105 105 95-90 260 165H80z' fill='%235b78a6'/%3E%3C/svg%3E",
+              "alt": "Abstract mountain illustration",
+              "caption": "A renderer-independent image reference"
+            },
+            "imagePosition": "right"
+          }
+        },
+        "notes": "Fixture slide 6"
+      },
+      {
+        "id": "fixture-kpi",
+        "purpose": "Demonstrate the kpi layout",
+        "layout": {
+          "kind": "kpi",
+          "content": {
+            "title": "The small set of signals",
+            "metrics": [
+              {
+                "label": "Clarity",
+                "value": "92",
+                "unit": "%",
+                "detail": "of reviewers found the message quickly"
+              },
+              {
+                "label": "Time saved",
+                "value": "3×",
+                "detail": "faster semantic editing"
+              },
+              {
+                "label": "Layouts",
+                "value": "8",
+                "detail": "core MVP layout contracts"
+              }
+            ]
+          }
+        },
+        "notes": "Fixture slide 7"
+      },
+      {
+        "id": "fixture-closing",
+        "purpose": "Demonstrate the closing layout",
+        "layout": {
+          "kind": "closing",
+          "content": {
+            "title": "Make the next idea presentable",
+            "takeaway": "Keep the meaning portable, then choose how it should look.",
+            "nextStep": "Create a brief and draft the first slide.",
+            "attribution": "PresentHTML MVP"
+          }
+        },
+        "notes": "Fixture slide 8"
+      }
+    ]
+  },
+  "brief": {
+    "schemaId": "presenthtml",
+    "schemaVersion": 1,
+    "kind": "presentation-brief",
+    "audience": "A product team preparing a concise project update",
+    "objective": "Align on the decision and next step",
+    "keyMessage": "A semantic presentation keeps content reusable from draft to export.",
+    "narrative": {
+      "summary": "Move from context to evidence and a concrete action.",
+      "beats": [
+        "Context",
+        "Evidence",
+        "Decision",
+        "Next step"
+      ]
+    },
+    "sections": [
+      {
+        "id": "context",
+        "title": "Context",
+        "intention": "Establish why the topic matters",
+        "slideIntentions": [
+          {
+            "id": "opening",
+            "purpose": "Open with the key message",
+            "layoutKind": "title"
+          },
+          {
+            "id": "background",
+            "purpose": "Frame the decision",
+            "layoutKind": "section"
+          }
+        ]
+      },
+      {
+        "id": "evidence",
+        "title": "Evidence",
+        "intention": "Show the useful signals",
+        "slideIntentions": [
+          {
+            "id": "signal",
+            "purpose": "State the core observation",
+            "layoutKind": "statement"
+          },
+          {
+            "id": "details",
+            "purpose": "Explain the supporting details",
+            "layoutKind": "title-body"
+          }
+        ]
+      }
+    ],
+    "slideCount": 8,
+    "durationMinutes": 8
+  }
+}

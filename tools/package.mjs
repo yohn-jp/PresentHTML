@@ -151,7 +151,7 @@ function transformModule(source, imports) {
     },
   );
 
-  if (/^\s*export\b/m.test(transformed) || /^\s*import\b/m.test(transformed)) {
+  if (/^export\b/m.test(transformed) || /^import\b/m.test(transformed)) {
     throw new Error("Unsupported ESM syntax remains after packaging transform");
   }
 
