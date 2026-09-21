@@ -1,0 +1,33 @@
+/* PresentHTML standalone presentation print stylesheet. */
+@media print {
+  @page {
+    size: 16in 9in;
+    margin: 0;
+  }
+
+  html,
+  body {
+    min-height: 0;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  .ph-presentation {
+    display: block;
+    width: 100%;
+  }
+
+  .ph-slide {
+    width: 100% !important;
+    min-height: 100vh;
+    height: 100vh;
+    aspect-ratio: auto;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .ph-slide:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+}
